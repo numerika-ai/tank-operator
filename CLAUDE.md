@@ -17,13 +17,13 @@
 | **GPU** | NVIDIA GeForce RTX 3090 |
 
 ### Dyski
-| Dysk | Całkowita | Wolna |
-|------|-----------|-------|
-| C: | 299 GB | 11 GB |
-| D: | 934 GB | 754 GB |
-| G: | 299 GB | 10 GB |
+| Dysk | Pojemność | Przeznaczenie |
+|------|-----------|---------------|
+| C: | 299 GB | System |
+| D: | 934 GB | Dane, modele AI, volumes Docker |
+| G: | 299 GB | Backup, temp |
 
-> ⚠️ **UWAGA:** Dyski C: i G: mają mało wolnego miejsca - preferuj D: dla dużych danych
+> **ZASADA:** Przed każdą instalacją sprawdź `df -h` - wymagane min. 10% wolnego miejsca
 
 ---
 
@@ -71,11 +71,14 @@ NIGDY nie instaluj bezpośrednio na hoście jeśli Docker jest opcją
 ### 2. PRZED KAŻDĄ INSTALACJĄ
 ```bash
 # OBOWIĄZKOWA SEKWENCJA:
-1. docker ps -a | grep <nazwa>           # Czy kontener istnieje?
-2. docker images | grep <obraz>          # Czy obraz jest pobrany?
-3. cat docs/DOCKER-REGISTRY.md           # Sprawdź dokumentację
-4. Jeśli nie istnieje → instaluj i DOKUMENTUJ
+1. df -h                                 # Czy jest min. 10% wolnego miejsca?
+2. docker ps -a | grep <nazwa>           # Czy kontener istnieje?
+3. docker images | grep <obraz>          # Czy obraz jest pobrany?
+4. cat docs/DOCKER-REGISTRY.md           # Sprawdź dokumentację
+5. Jeśli nie istnieje → instaluj i DOKUMENTUJ
 ```
+
+> **STOP jeśli:** wolne miejsce <10% na docelowym dysku - najpierw wyczyść!
 
 ### 3. BEZPIECZEŃSTWO SIECIOWE
 ```
@@ -103,6 +106,33 @@ PO KAŻDEJ znaczącej zmianie w systemie:
 ```
 
 > 📡 **CEL:** Jeśli coś pójdzie nie tak, historia zmian jest widoczna z zewnątrz (GitHub)
+
+### 6. HEALTH CHECK (PO KAŻDEJ INSTALACJI)
+```bash
+# OBOWIĄZKOWA WERYFIKACJA:
+1. docker ps | grep <nazwa>              # Czy kontener działa?
+2. docker logs --tail 20 <nazwa>         # Czy są błędy w logach?
+3. curl -s localhost:<port>/health       # Endpoint health (jeśli dostępny)
+4. Jeśli FAIL → rollback natychmiast
+```
+
+### 7. BACKUP PRZED ZMIANĄ
+```
+PRZED każdą aktualizacją/modyfikacją:
+1. docker commit <container> <container>:backup-$(date +%Y%m%d)
+2. Zapisz docker-compose.yml.bak
+3. Eksportuj volumes krytyczne (bazy danych!)
+4. Dopiero po backup → wprowadź zmiany
+```
+
+### 8. ROLLBACK PROCEDURE
+```bash
+# Jeśli coś poszło nie tak:
+1. docker stop <nazwa>
+2. docker rm <nazwa>
+3. docker run ... <nazwa>:backup-YYYYMMDD  # Przywróć backup
+4. Zaloguj [FIX] [ROLL] w CHANGELOG.md
+```
 
 ---
 
@@ -287,7 +317,7 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - CUDA_VISIBLE_DEVICES=0
-    # Dla dużych modeli - użyj dysku D: (754GB wolne)
+    # Dla dużych modeli - użyj dysku D: (największa pojemność)
     volumes:
       - /mnt/d/ai-models:/models
 ```
@@ -302,13 +332,23 @@ services:
 - [ ] Backup konfiguracji bota
 ```
 
-### Limity zasobów (RTX 3090)
-| Model size | Max VRAM | Zalecenie |
-|------------|----------|-----------|
-| 7B params | ~6-8 GB | OK |
-| 13B params | ~10-14 GB | OK |
-| 30B params | ~20-24 GB | LIMIT |
-| 70B params | >40 GB | WYMAGA quantization (4-bit) |
+### VRAM Management (RTX 3090 = 24GB)
+```
+ZASADA: NIGDY nie używaj 100% VRAM!
+- System/CUDA overhead: ~2-4 GB (rezerwacja obowiązkowa)
+- Dostępne dla modeli: max 20 GB
+- Bezpieczny limit: 18 GB (75%)
+```
+
+### Limity zasobów
+| Model size | VRAM modelu | + overhead | Zalecenie |
+|------------|-------------|------------|-----------|
+| 7B params | ~6-8 GB | ~10 GB | OK |
+| 13B params | ~10-14 GB | ~16 GB | OK |
+| 30B params | ~18-20 GB | ~22 GB | LIMIT (quantize!) |
+| 70B params | >40 GB | N/A | 4-bit quant lub offload CPU |
+
+> **PRZED załadowaniem modelu:** `nvidia-smi` → sprawdź czy VRAM free > model + 4GB
 
 ---
 
