@@ -88,20 +88,22 @@ NIGDY nie instaluj bezpośrednio na hoście jeśli Docker jest opcją
 - Eksponuj TYLKO przez reverse proxy (Traefik/Nginx)
 ```
 
-### 4. LOGOWANIE LOKALNE
+### 4. LOGOWANIE (SHARED)
 ```
-KAŻDA operacja systemowa → /logs/commands/
-KAŻDA zmiana Docker → /logs/docker-changes/
-KAŻDY błąd → /logs/errors/
-Dzienne podsumowanie → /logs/daily/
+KAŻDA operacja systemowa → ../shared/logs/commands/
+KAŻDA zmiana Docker → ../shared/logs/docker-changes/
+KAŻDY błąd → ../shared/logs/errors/
+Dzienne podsumowanie → ../shared/logs/daily/
 ```
+
+> **UWAGA:** Używaj ../shared/ - wspólne logi z Clawdbotem!
 
 ### 5. GITHUB CHANGELOG (ZEWNĘTRZNA WIDOCZNOŚĆ)
 ```
 PO KAŻDEJ znaczącej zmianie w systemie:
-1. Zaktualizuj logs/CHANGELOG.md
-2. git add logs/CHANGELOG.md
-3. git commit -m "log: <krótki opis>"
+1. Zaktualizuj ../shared/CHANGELOG.md
+2. git add ../shared/
+3. git commit -m "log: [CC] <krótki opis>"
 4. git push
 ```
 
