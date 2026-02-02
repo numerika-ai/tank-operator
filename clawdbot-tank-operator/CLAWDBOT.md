@@ -6,6 +6,21 @@
 
 ---
 
+## ⚠️ WSPÓLNE POLITYKI
+
+> **WAŻNE:** Przed jakąkolwiek operacją przeczytaj wspólne polityki!
+>
+> 📜 **`../shared/POLICIES.md`** - Single Source of Truth
+>
+> Zawiera:
+> - Absolutne zakazy (obowiązują WSZYSTKIE systemy)
+> - Format logów (obowiązkowy) - używaj `[CB]` jako SOURCE
+> - Docker standards (jeśli Clawdbot zarządza kontenerami)
+> - AI/ML standards (VRAM limits)
+> - Procedury (health check, backup, rollback)
+
+---
+
 ## 🖥️ ŚRODOWISKO
 
 | Komponent | Specyfikacja |

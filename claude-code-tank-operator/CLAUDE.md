@@ -7,6 +7,21 @@
 
 ---
 
+## ⚠️ WSPÓLNE POLITYKI
+
+> **WAŻNE:** Przed jakąkolwiek operacją przeczytaj wspólne polityki!
+>
+> 📜 **`../shared/POLICIES.md`** - Single Source of Truth
+>
+> Zawiera:
+> - Absolutne zakazy (obowiązują WSZYSTKIE systemy)
+> - Format logów (obowiązkowy)
+> - Docker standards
+> - AI/ML standards (VRAM limits)
+> - Procedury (health check, backup, rollback)
+
+---
+
 ## 🖥️ HARDWARE
 
 | Komponent | Specyfikacja |

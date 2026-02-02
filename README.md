@@ -36,6 +36,7 @@ tank-operator/
 │       └── global/                 # Shared knowledge
 │
 ├── shared/                         # 🔗 Wspólne zasoby
+│   ├── POLICIES.md                 # ← SINGLE SOURCE OF TRUTH
 │   ├── CHANGELOG.md                # ← GŁÓWNY LOG (GitHub)
 │   ├── README.md                   # Opis shared
 │   │
@@ -62,9 +63,20 @@ tank-operator/
 ## 🔗 Wspólne zasoby (shared/)
 
 ### Cel
+- **POLICIES.md** - Single Source of Truth dla WSZYSTKICH polityk
 - **Jeden CHANGELOG** dla Claude Code i Clawdbot
 - **Wspólne registry** - kto co zainstalował
 - **Widoczność z zewnątrz** - logi na GitHub
+
+### POLICIES.md - spójność systemów
+```
+Oba systemy (CC + CB) MUSZĄ przestrzegać:
+├── Te same absolutne zakazy
+├── Ten sam format logów [SOURCE] [TAG] [STATUS]
+├── Te same Docker standards
+├── Te same AI/ML limits (VRAM 20GB max)
+└── Te same procedury (backup, health check, rollback)
+```
 
 ### Format logów
 ```
