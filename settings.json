@@ -1,0 +1,172 @@
+{
+  "permissions": {
+    "allowedTools": [
+      "Read",
+      "Write",
+      "Bash(docker *)",
+      "Bash(docker-compose *)",
+      "Bash(systemctl status *)",
+      "Bash(journalctl *)",
+      "Bash(cat *)",
+      "Bash(grep *)",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(df *)",
+      "Bash(free *)",
+      "Bash(ps *)",
+      "Bash(ss *)",
+      "Bash(ip *)",
+      "Bash(uname *)",
+      "Bash(uptime)",
+      "Bash(htop)",
+      "Bash(top *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(sort *)",
+      "Bash(uniq *)",
+      "Bash(awk *)",
+      "Bash(sed *)",
+      "Bash(git *)",
+      "Bash(echo *)",
+      "Bash(date)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/*)",
+      "Read(./**/secrets/*)",
+      "Read(./**/.env)",
+      "Read(./**/.env.*)",
+      "Write(./.env)",
+      "Write(./secrets/*)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf /*)",
+      "Bash(rm -rf ~)",
+      "Bash(chmod 777 *)",
+      "Bash(curl * | bash)",
+      "Bash(wget * | bash)",
+      "Bash(*password*)",
+      "Bash(*secret*)",
+      "Bash(*token*)",
+      "Bash(iptables -F)",
+      "Bash(ufw disable)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(rm *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '⚠️  OSTRZEŻENIE: Operacja usuwania!' >&2; echo '{\"decision\": \"ask\", \"message\": \"Potwierdzasz usunięcie?\"}'"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(docker rm *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '🐳 Usuwanie kontenera - sprawdź czy dane są zbackupowane!' >&2"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(docker volume rm *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '💾 UWAGA: Usuwanie volume = utrata danych!' >&2; echo '{\"decision\": \"ask\", \"message\": \"Czy dane są zbackupowane?\"}'"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(systemctl stop *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '🛑 Zatrzymywanie usługi systemowej' >&2"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(ufw *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '🔥 Modyfikacja firewalla - sprawdź regułę!' >&2"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(iptables *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '🔥 Modyfikacja iptables - zrób backup najpierw: iptables-save > backup.rules' >&2"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash(docker run *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date '+%Y-%m-%d %H:%M:%S')] DOCKER RUN: $CLAUDE_TOOL_INPUT\" >> logs/commands/docker-commands.log"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(docker-compose up *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date '+%Y-%m-%d %H:%M:%S')] COMPOSE UP: $CLAUDE_TOOL_INPUT\" >> logs/commands/docker-commands.log"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(docker stop *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date '+%Y-%m-%d %H:%M:%S')] DOCKER STOP: $CLAUDE_TOOL_INPUT\" >> logs/docker-changes/$(date +%Y-%m-%d).md"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash(docker rm *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date '+%Y-%m-%d %H:%M:%S')] DOCKER RM: $CLAUDE_TOOL_INPUT\" >> logs/docker-changes/$(date +%Y-%m-%d).md"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"\\n========================================\" >> logs/daily/$(date +%Y-%m-%d).md && echo \"## Sesja rozpoczęta: $(date '+%Y-%m-%d %H:%M:%S')\" >> logs/daily/$(date +%Y-%m-%d).md && echo \"\\n### Status systemu:\" >> logs/daily/$(date +%Y-%m-%d).md && echo \"- Uptime: $(uptime -p)\" >> logs/daily/$(date +%Y-%m-%d).md && echo \"- RAM: $(free -h | grep Mem | awk '{print $3\"/\"$2}')\" >> logs/daily/$(date +%Y-%m-%d).md && echo \"- Disk: $(df -h / | tail -1 | awk '{print $3\"/\"$2}')\" >> logs/daily/$(date +%Y-%m-%d).md"
+          }
+        ]
+      }
+    ]
+  },
+  "env": {
+    "DOCKER_BUILDKIT": "1",
+    "COMPOSE_DOCKER_CLI_BUILD": "1"
+  }
+}
