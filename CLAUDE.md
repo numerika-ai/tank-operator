@@ -1,23 +1,65 @@
 # 🐧 LINUX INFRASTRUCTURE ORCHESTRATOR v1.0
 
 > **CLAUDE CODE CONFIGURATION FOR SECURE LINUX ADMINISTRATION**
-> 
+>
 > Ten plik jest automatycznie wczytywany przez Claude Code.
 > Definiuje zasady zarządzania infrastrukturą Linux z podejściem Docker-first.
 
 ---
 
+## 🖥️ HARDWARE
+
+| Komponent | Specyfikacja |
+|-----------|--------------|
+| **CPU** | AMD Ryzen 9 7900X 12-Core Processor |
+| **Rdzenie/Wątki** | 12 / 24 |
+| **RAM** | 63.61 GB |
+| **GPU** | NVIDIA GeForce RTX 3090 |
+
+### Dyski
+| Dysk | Całkowita | Wolna |
+|------|-----------|-------|
+| C: | 299 GB | 11 GB |
+| D: | 934 GB | 754 GB |
+| G: | 299 GB | 10 GB |
+
+> ⚠️ **UWAGA:** Dyski C: i G: mają mało wolnego miejsca - preferuj D: dla dużych danych
+
+---
+
 ## 🎯 MISJA
+
+**Cel główny:** Zarządzanie infrastrukturą Linux jako platformą do obsługi **modeli AI** i **OpenCloud Bot** w wirtualizowanych maszynach Ubuntu.
 
 Zarządzanie infrastrukturą Linux w sposób:
 - **Bezpieczny** - security-by-default, zasada najmniejszych uprawnień
 - **Dokumentowany** - każda zmiana jest logowana
 - **Powtarzalny** - Docker-first, Infrastructure as Code
 - **Audytowalny** - pełna historia operacji
+- **AI-Ready** - zoptymalizowany pod uruchamianie modeli AI (GPU, VRAM, CUDA)
 
 ---
 
 ## 📜 FUNDAMENTALNE ZASADY
+
+### 0. RESEARCH-FIRST (NAJWAŻNIEJSZA ZASADA)
+```
+PRZED każdą operacją instalacji/konfiguracji:
+1. Przeszukaj internet (WebSearch) w poszukiwaniu:
+   - Najnowszej wersji oprogramowania
+   - Znanych bugów i CVE
+   - Best practices dla danej wersji
+   - Breaking changes w ostatnich aktualizacjach
+2. Sprawdź changelog/release notes projektu
+3. Zweryfikuj kompatybilność z Ubuntu/Docker
+4. Dopiero po researchu → rozpocznij instalację
+```
+
+**Przykładowe zapytania:**
+- `"<nazwa_oprogramowania> latest version 2024 changelog"`
+- `"<nazwa> docker best practices"`
+- `"<nazwa> known issues ubuntu"`
+- `"<nazwa> CUDA compatibility RTX 3090"` (dla AI/ML)
 
 ### 1. DOCKER-FIRST
 ```
@@ -43,12 +85,106 @@ NIGDY nie instaluj bezpośrednio na hoście jeśli Docker jest opcją
 - Eksponuj TYLKO przez reverse proxy (Traefik/Nginx)
 ```
 
-### 4. LOGOWANIE
+### 4. LOGOWANIE LOKALNE
 ```
 KAŻDA operacja systemowa → /logs/commands/
 KAŻDA zmiana Docker → /logs/docker-changes/
 KAŻDY błąd → /logs/errors/
 Dzienne podsumowanie → /logs/daily/
+```
+
+### 5. GITHUB CHANGELOG (ZEWNĘTRZNA WIDOCZNOŚĆ)
+```
+PO KAŻDEJ znaczącej zmianie w systemie:
+1. Zaktualizuj logs/CHANGELOG.md
+2. git add logs/CHANGELOG.md
+3. git commit -m "log: <krótki opis>"
+4. git push
+```
+
+> 📡 **CEL:** Jeśli coś pójdzie nie tak, historia zmian jest widoczna z zewnątrz (GitHub)
+
+---
+
+## 📝 SYSTEM LOGÓW (TOKEN-EFFICIENT)
+
+### Format wpisu (jedna linia = jeden wpis)
+```
+[YYYY-MM-DD HH:MM] [TAG] [STATUS] opis | szczegóły
+```
+
+### Tagi (krótkie, przeszukiwalne)
+| Tag | Znaczenie |
+|-----|-----------|
+| `DCK` | Docker (run/stop/rm/build) |
+| `NET` | Sieć (porty/firewall/DNS) |
+| `SEC` | Security (fail2ban/ufw/certs) |
+| `SYS` | System (apt/service/reboot) |
+| `AI` | AI/ML (modele/CUDA/VRAM) |
+| `BOT` | OpenCloud Bot operacje |
+| `ERR` | Błąd krytyczny |
+| `FIX` | Naprawa/rollback |
+
+### Statusy
+| Status | Znaczenie |
+|--------|-----------|
+| `OK` | Sukces |
+| `FAIL` | Niepowodzenie |
+| `WARN` | Ostrzeżenie |
+| `SKIP` | Pominięto |
+| `ROLL` | Rollback |
+
+### Przykłady wpisów
+```
+[2024-01-15 14:32] [DCK] [OK] start:ollama | img=ollama:latest port=11434
+[2024-01-15 14:35] [AI] [OK] load:llama2 | vram=12GB time=45s
+[2024-01-15 15:01] [NET] [FAIL] open:8080 | err=port_in_use pid=1234
+[2024-01-15 15:02] [FIX] [OK] kill:1234 | freed_port=8080
+[2024-01-15 15:10] [BOT] [OK] deploy:opencloud | vm=ubuntu-01 cpu=4 ram=8G
+```
+
+### Struktura plików logów
+```
+logs/
+├── CHANGELOG.md          # ← GŁÓWNY LOG (pushowany na GitHub)
+├── commands/
+│   └── YYYY-MM-DD.log    # Dzienne logi poleceń
+├── docker-changes/
+│   └── YYYY-MM-DD.log    # Zmiany Docker
+├── errors/
+│   └── ERROR-LOG.md      # Błędy krytyczne
+└── daily/
+    └── YYYY-MM-DD.md     # Podsumowania dzienne
+```
+
+### CHANGELOG.md - szablon
+```markdown
+# CHANGELOG
+
+## [YYYY-MM-DD]
+
+### Zmiany
+- `[TAG] [STATUS]` opis | szczegóły
+
+### Błędy (jeśli wystąpiły)
+- `[ERR]` opis | rozwiązanie
+
+---
+```
+
+### Wyszukiwanie w logach (grep-friendly)
+```bash
+# Wszystkie błędy
+grep "\[ERR\]" logs/CHANGELOG.md
+
+# Operacje Docker z dzisiaj
+grep "\[DCK\]" logs/CHANGELOG.md | grep "2024-01-15"
+
+# Wszystkie operacje AI
+grep "\[AI\]" logs/CHANGELOG.md
+
+# Nieudane operacje
+grep "\[FAIL\]" logs/CHANGELOG.md
 ```
 
 ---
@@ -108,6 +244,71 @@ services:
     # NIGDY nie używaj 'privileged: true' bez uzasadnienia
     # NIGDY nie mountuj /var/run/docker.sock bez potrzeby
 ```
+
+---
+
+## 🤖 AI/ML WORKFLOW
+
+### Przeznaczenie systemu
+```
+- Hostowanie modeli AI (LLM, Vision, Audio)
+- Obsługa OpenCloud Bot w VM Ubuntu
+- Zarządzanie zasobami GPU (RTX 3090 - 24GB VRAM)
+- Wirtualizacja maszyn dla izolacji workloadów
+```
+
+### Przed uruchomieniem modelu AI
+```bash
+# 1. SPRAWDŹ ZASOBY GPU
+nvidia-smi                              # Status GPU
+nvidia-smi --query-gpu=memory.free --format=csv  # Wolna VRAM
+
+# 2. SPRAWDŹ WYMAGANIA MODELU (research-first!)
+# WebSearch: "<model_name> VRAM requirements"
+# WebSearch: "<model_name> RTX 3090 performance"
+
+# 3. SPRAWDŹ KOMPATYBILNOŚĆ CUDA
+nvidia-smi | grep "CUDA Version"
+docker run --gpus all nvidia/cuda:12.0-base nvidia-smi
+```
+
+### Docker z GPU (wymagana konfiguracja)
+```yaml
+services:
+  ai-model:
+    image: <obraz>
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+    # Dla dużych modeli - użyj dysku D: (754GB wolne)
+    volumes:
+      - /mnt/d/ai-models:/models
+```
+
+### OpenCloud Bot - deployment checklist
+```
+- [ ] VM Ubuntu utworzona i skonfigurowana
+- [ ] Sieć wewnętrzna między VM a hostem
+- [ ] GPU passthrough (jeśli wymagane)
+- [ ] Monitoring zasobów aktywny
+- [ ] Logi przekierowane do /logs/
+- [ ] Backup konfiguracji bota
+```
+
+### Limity zasobów (RTX 3090)
+| Model size | Max VRAM | Zalecenie |
+|------------|----------|-----------|
+| 7B params | ~6-8 GB | OK |
+| 13B params | ~10-14 GB | OK |
+| 30B params | ~20-24 GB | LIMIT |
+| 70B params | >40 GB | WYMAGA quantization (4-bit) |
 
 ---
 
