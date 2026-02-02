@@ -336,8 +336,8 @@ services:
 ```
 ZASADA: NIGDY nie używaj 100% VRAM!
 - System/CUDA overhead: ~2-4 GB (rezerwacja obowiązkowa)
-- Dostępne dla modeli: max 20 GB
-- Bezpieczny limit: 18 GB (75%)
+- Dostępne dla modeli: max 22 GB
+- Bezpieczny limit: 20 GB (zalecany)
 ```
 
 ### Limity zasobów
@@ -349,6 +349,63 @@ ZASADA: NIGDY nie używaj 100% VRAM!
 | 70B params | >40 GB | N/A | 4-bit quant lub offload CPU |
 
 > **PRZED załadowaniem modelu:** `nvidia-smi` → sprawdź czy VRAM free > model + 4GB
+
+### Wersjonowanie CUDA/cuDNN
+```
+OBOWIĄZEK dokumentowania dla każdego kontenera AI:
+- Wersja CUDA (np. 12.1)
+- Wersja cuDNN (np. 8.9)
+- Wersja PyTorch/TensorFlow
+- Driver NVIDIA (np. 535.xx)
+
+Sprawdź kompatybilność: nvidia-smi → CUDA Version
+Zapisz w: docs/DOCKER-REGISTRY.md przy każdym kontenerze AI
+```
+
+### Model Registry (docs/MODEL-REGISTRY.md)
+```markdown
+# MODEL REGISTRY
+
+| Model | Rozmiar | VRAM | Quantization | Kontener | Status |
+|-------|---------|------|--------------|----------|--------|
+| llama2-7b | 7B | 6GB | fp16 | ollama | active |
+| mistral-7b | 7B | 8GB | fp16 | ollama | active |
+| codellama-13b | 13B | 12GB | 4-bit | ollama | standby |
+
+## Załadowane modele (runtime)
+> Aktualizuj po każdym `ollama pull` lub load modelu
+
+## Historia zmian
+- [DATA] [AI] [OK] pull:model_name | vram=XGB
+```
+
+### Auto-cleanup (Cron Job)
+```bash
+# /etc/cron.weekly/docker-cleanup
+
+#!/bin/bash
+# Czyszczenie nieużywanych zasobów Docker
+
+LOG="/logs/commands/cleanup-$(date +%Y%m%d).log"
+
+echo "[$(date)] Starting cleanup" >> $LOG
+
+# Usuń zatrzymane kontenery starsze niż 7 dni
+docker container prune -f --filter "until=168h" >> $LOG 2>&1
+
+# Usuń nieużywane obrazy (dangling)
+docker image prune -f >> $LOG 2>&1
+
+# Usuń nieużywane volumes (OSTROŻNIE - tylko unnamed)
+# docker volume prune -f >> $LOG 2>&1  # WYŁĄCZONE - ryzyko utraty danych
+
+# Usuń nieużywane sieci
+docker network prune -f >> $LOG 2>&1
+
+echo "[$(date)] Cleanup finished" >> $LOG
+```
+
+> **UWAGA:** Skrypt NIE usuwa named volumes - chroni dane!
 
 ---
 
