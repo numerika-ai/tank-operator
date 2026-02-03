@@ -13,6 +13,9 @@
 - `[CC] [SYS] [OK]` sync:shared | zsynchronizowano strukturę CC + CB
 - `[CC] [SYS] [OK]` merge:registry | połączono rejestry Docker i Model
 - `[CC] [SYS] [OK]` link:linux-orchestrator → tank-operator | utworzono symlink
+- `[CC] [SYS] [OK]` install:docker | Docker 29.2.1 + Compose 5.0.2
+- `[CC] [SYS] [WARN]` install:openclaw | oczekuje na przelogowanie (uprawnienia docker)
+- `[CC] [SYS] [OK]` save:session | zapisano log sesji do daily/2026-02-03.md
 
 ---
 
