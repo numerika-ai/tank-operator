@@ -1,6 +1,6 @@
 # SYSTEM STATE
 
-> Aktualny stan infrastruktury (aktualizowany automatycznie)
+> Aktualny stan infrastruktury (aktualizowany przez Claude Code i Clawdbot)
 
 ---
 
@@ -37,11 +37,11 @@
 | VRAM Free | ? GB | - |
 | GPU Util | ? % | 100% |
 
-> Aktualizuj: `nvidia-smi --query-gpu=...`
+> Aktualizuj: `nvidia-smi --query-gpu=memory.used,memory.free,utilization.gpu --format=csv`
 
 ---
 
 ## Ostatnia aktualizacja
 
-- **Data:** -
-- **Przez:** -
+- **Data:** 2026-02-03
+- **Przez:** CC (Claude Code)

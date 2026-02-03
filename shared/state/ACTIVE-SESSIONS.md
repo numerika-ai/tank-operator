@@ -1,14 +1,22 @@
 # ACTIVE SESSIONS
 
-> Aktywne sesje Clawdbot i ich konteksty
+> Aktywne sesje Clawdbot i Claude Code
 
 ---
 
 ## Sesje Clawdbot
 
-| Session ID | User | Tokens | Context | Started | Last Activity |
-|------------|------|--------|---------|---------|---------------|
+| Session ID | User | Tokens | Context % | Started | Last Activity |
+|------------|------|--------|-----------|---------|---------------|
 | - | - | - | - | - | - |
+
+---
+
+## Sesje Claude Code
+
+| Session ID | Working Dir | Started | Last Activity |
+|------------|-------------|---------|---------------|
+| - | - | - | - |
 
 ---
 
@@ -23,36 +31,16 @@
 
 ---
 
-## Memory Management
-
-### Strategia
-```
-1. Nowa sesja → alokuj context buffer
-2. Przekroczenie 80% tokens → summarize old context
-3. Przekroczenie 95% tokens → archive & start fresh
-4. Sesja idle >30min → persist to disk & free RAM
-```
-
-### Persisted Sessions
-
-| Session ID | User | Tokens | Persisted At | File |
-|------------|------|--------|--------------|------|
-| - | - | - | - | - |
-
----
-
 ## Statystyki
 
 | Metryka | Dzisiaj | Tydzień | Miesiąc |
 |---------|---------|---------|---------|
 | Total sessions | - | - | - |
 | Total tokens | - | - | - |
-| Avg tokens/session | - | - | - |
-| Peak concurrent | - | - | - |
 
 ---
 
 ## Ostatnia aktualizacja
 
-- **Data:** -
-- **Przez:** Clawdbot
+- **Data:** 2026-02-03
+- **Przez:** CC (Claude Code)

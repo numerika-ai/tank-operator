@@ -142,8 +142,10 @@ PRZED każdą aktualizacją/modyfikacją:
 
 ### Format wpisu (jedna linia = jeden wpis)
 ```
-[YYYY-MM-DD HH:MM] [TAG] [STATUS] opis | szczegóły
+[YYYY-MM-DD HH:MM] [CC] [TAG] [STATUS] opis | szczegóły
 ```
+
+> **WAŻNE:** Zawsze używaj `[CC]` (Claude Code) jako SOURCE. Clawdbot używa `[CB]`.
 
 ### Tagi (krótkie, przeszukiwalne)
 | Tag | Znaczenie |
@@ -168,11 +170,11 @@ PRZED każdą aktualizacją/modyfikacją:
 
 ### Przykłady wpisów
 ```
-[2024-01-15 14:32] [DCK] [OK] start:ollama | img=ollama:latest port=11434
-[2024-01-15 14:35] [AI] [OK] load:llama2 | vram=12GB time=45s
-[2024-01-15 15:01] [NET] [FAIL] open:8080 | err=port_in_use pid=1234
-[2024-01-15 15:02] [FIX] [OK] kill:1234 | freed_port=8080
-[2024-01-15 15:10] [BOT] [OK] deploy:opencloud | vm=ubuntu-01 cpu=4 ram=8G
+[2024-01-15 14:32] [CC] [DCK] [OK] start:ollama | img=ollama:latest port=11434
+[2024-01-15 14:35] [CC] [AI] [OK] load:llama2 | vram=12GB time=45s
+[2024-01-15 15:01] [CC] [NET] [FAIL] open:8080 | err=port_in_use pid=1234
+[2024-01-15 15:02] [CC] [FIX] [OK] kill:1234 | freed_port=8080
+[2024-01-15 15:10] [CB] [BOT] [OK] deploy:opencloud | vm=ubuntu-01 cpu=4 ram=8G
 ```
 
 ### Struktura plików logów
@@ -418,35 +420,35 @@ echo "[$(date)] Cleanup finished" >> $LOG
 │
 ├── CLAUDE.md                    # ← JESTEŚ TUTAJ
 │
-├── docs/                        # 📚 DOKUMENTACJA
-│   ├── DOCKER-REGISTRY.md       # Lista wszystkich kontenerów
-│   ├── NETWORK-MAP.md           # Mapa sieci i portów
+├── docs/                        # 📚 LOKALNA DOKUMENTACJA
 │   ├── SECURITY-POLICIES.md     # Polityki bezpieczeństwa
-│   ├── BACKUP-PROCEDURES.md     # Procedury backup
+│   ├── FUNCTIONS.md             # Mapa funkcji
 │   └── EMERGENCY-RUNBOOK.md     # Procedury awaryjne
+│
+├── shared/                      # 🔗 WSPÓLNE Z CLAWDBOT
+│   ├── CHANGELOG.md             # ← GŁÓWNY LOG (GitHub)
+│   ├── logs/                    # Historia operacji
+│   │   ├── commands/
+│   │   ├── docker-changes/
+│   │   ├── errors/
+│   │   └── daily/
+│   ├── registry/                # Rejestry (wspólne)
+│   │   ├── DOCKER-REGISTRY.md   # Lista kontenerów
+│   │   ├── MODEL-REGISTRY.md    # Lista modeli AI
+│   │   └── INSTALL-HISTORY.md   # Historia instalacji
+│   └── state/                   # Aktualny stan
+│       ├── SYSTEM-STATE.md      # Stan systemu
+│       └── ACTIVE-SESSIONS.md   # Sesje CC + CB
 │
 ├── infrastructure/              # 🏗️ KONFIGURACJE
 │   ├── docker-compose/          # Pliki compose per usługa
-│   ├── network-configs/         # Konfiguracje sieciowe
 │   └── security-policies/       # Reguły firewall, fail2ban
 │
-├── logs/                        # 📝 LOGI
-│   ├── commands/                # Historia poleceń
-│   ├── docker-changes/          # Zmiany w kontenerach
-│   ├── errors/                  # Log błędów
-│   └── daily/                   # Dzienne podsumowania
-│
-├── state/                       # 📊 BIEŻĄCY STAN
-│   ├── SYSTEM-STATE.md          # Stan systemu
-│   ├── ACTIVE-ISSUES.md         # Aktywne problemy
-│   └── PENDING-TASKS.md         # Zadania do wykonania
-│
 └── .claude/                     # ⚙️ KONFIGURACJA CLAUDE CODE
-    ├── settings.json            # Hooki i uprawnienia
-    ├── skills/                  # Umiejętności domenowe
-    ├── commands/                # Slash commands
-    └── agents/                  # Definicje agentów
+    └── settings.json            # Hooki i uprawnienia
 ```
+
+> **ZASADA SHARED-FIRST:** Wszystkie logi i registry w `shared/` - widoczne dla obu systemów!
 
 ---
 
@@ -520,10 +522,12 @@ last -20                         # Logowania
 
 ## 🔗 WAŻNE LINKI
 
-- **Dokumentacja Docker:** → `docs/DOCKER-REGISTRY.md`
-- **Mapa sieci:** → `docs/NETWORK-MAP.md`
+- **CHANGELOG (główny log):** → `shared/CHANGELOG.md`
+- **Docker Registry:** → `shared/registry/DOCKER-REGISTRY.md`
+- **Model Registry:** → `shared/registry/MODEL-REGISTRY.md`
+- **Stan systemu:** → `shared/state/SYSTEM-STATE.md`
 - **Procedury awaryjne:** → `docs/EMERGENCY-RUNBOOK.md`
-- **Log błędów:** → `logs/errors/ERROR-LOG.md`
+- **Log błędów:** → `shared/logs/errors/ERROR-LOG.md`
 
 ---
 
@@ -539,6 +543,6 @@ last -20                         # Logowania
 
 ---
 
-**Wersja:** 1.0.0  
-**Ostatnia aktualizacja:** {{DATE}}  
+**Wersja:** 1.0.0
+**Ostatnia aktualizacja:** 2026-02-03
 **Właściciel:** Numerika

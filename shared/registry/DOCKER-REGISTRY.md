@@ -1,6 +1,7 @@
 # DOCKER REGISTRY
 
 > Wspólny rejestr kontenerów Docker dla całej infrastruktury
+> Aktualizują: Claude Code [CC], Clawdbot [CB]
 
 ---
 
