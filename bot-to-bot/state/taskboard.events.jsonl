@@ -1,3 +1,5 @@
 {"id":"E-20260208-001","ts":"2026-02-08T19:03:00Z","taskId":"T-20260208-01","actor":"wiki","type":"create","message":"Test taskboard: Tank potwierdza status maszyny","data":{"priority":"P1"}}
 {"id":"E-20260208-002","ts":"2026-02-08T19:03:01Z","taskId":"T-20260208-01","actor":"wiki","type":"plan","message":"Tank odpowiada na PING z raportem: docker, GPU, sieć, blockery","data":{"planVersion":1}}
 {"id":"E-20260208-003","ts":"2026-02-08T19:05:54Z","taskId":"T-20260208-01","actor":"tank","type":"review","message":"Task reviewed OK, plan accepted","data":{"planVersion":1}}
+{"id":"E-20260208-004","ts":"2026-02-08T19:07:00Z","taskId":"T-20260208-01","actor":"wiki","type":"agree","message":"Both sides confirmed, moving to AGREED","data":{"agreedBy":["wiki","tank"]}}
+{"id":"E-20260208-005","ts":"2026-02-08T19:07:01Z","taskId":"T-20260208-01","actor":"wiki","type":"status","message":"AGREED → DONE (test task completed)","data":{"statusFrom":"PLAN","statusTo":"DONE"}}
