@@ -31,6 +31,12 @@ openclaw-memory-optimizer/
 
 ---
 
+## Zasady bezpieczeństwa (z review Tanka)
+
+1. **Każdy moduł: `--dry-run` (domyślne) + `--apply`** — bez jawnego `--apply` nic nie modyfikuje plików
+2. **Interfejsy wejścia jasno zdefiniowane** — moduł 3 wymaga skills.json, moduł 4 wymaga last_messages.json
+3. **Lean Loader scope: TYLKO workspace files** — nie grzebie w repo/taskboard/shared/
+
 ## 5 Modułów (niezależnych)
 
 ### Moduł 1: Context Audit (`module-1-context-audit`)
