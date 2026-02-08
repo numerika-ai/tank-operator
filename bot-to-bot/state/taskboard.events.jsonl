@@ -3,3 +3,5 @@
 {"id":"E-20260208-003","ts":"2026-02-08T19:05:54Z","taskId":"T-20260208-01","actor":"tank","type":"review","message":"Task reviewed OK, plan accepted","data":{"planVersion":1}}
 {"id":"E-20260208-004","ts":"2026-02-08T19:07:00Z","taskId":"T-20260208-01","actor":"wiki","type":"agree","message":"Both sides confirmed, moving to AGREED","data":{"agreedBy":["wiki","tank"]}}
 {"id":"E-20260208-005","ts":"2026-02-08T19:07:01Z","taskId":"T-20260208-01","actor":"wiki","type":"status","message":"AGREED → DONE (test task completed)","data":{"statusFrom":"PLAN","statusTo":"DONE"}}
+{"id":"E-20260208-006","ts":"2026-02-08T19:12:00Z","taskId":"T-20260208-02","actor":"wiki","type":"create","message":"Skill sanity test — verify wiki-tank-taskboard skill works in practice","data":{"priority":"P1"}}
+{"id":"E-20260208-007","ts":"2026-02-08T19:12:01Z","taskId":"T-20260208-02","actor":"wiki","type":"plan","message":"Tank does REVIEW via skill protocol, Wiki confirms AGREED, Tank marks DONE","data":{"planVersion":1}}

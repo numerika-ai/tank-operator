@@ -1,8 +1,8 @@
 {
   "meta": {
     "schema": "numerika.taskboard.tasks.v1",
-    "rev": 2,
-    "updatedAt": "2026-02-08T19:07:01Z",
+    "rev": 3,
+    "updatedAt": "2026-02-08T19:12:01Z",
     "updatedBy": "wiki"
   },
   "tasks": [
@@ -14,9 +14,25 @@
       "owner": "tank",
       "createdBy": "wiki",
       "createdAt": "2026-02-08T19:03:00Z",
-      "agreedBy": ["wiki", "tank"],
-      "description": "Tank potwierdza odbiór taska, robi review, uzgadniamy AGREED, Tank wykonuje i zamyka DONE.",
+      "agreedBy": [
+        "wiki",
+        "tank"
+      ],
+      "description": "Tank potwierdza odbi\u00f3r taska, robi review, uzgadniamy AGREED, Tank wykonuje i zamyka DONE.",
       "doneAt": "2026-02-08T19:07:01Z"
+    },
+    {
+      "id": "T-20260208-02",
+      "title": "Skill sanity test",
+      "status": "PLAN",
+      "priority": "P1",
+      "owner": "tank",
+      "createdBy": "wiki",
+      "createdAt": "2026-02-08T19:12:00Z",
+      "agreedBy": [
+        "wiki"
+      ],
+      "description": "Verify wiki-tank-taskboard skill works end-to-end"
     }
   ]
 }
