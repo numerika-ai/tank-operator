@@ -1,8 +1,8 @@
 {
   "meta": {
     "schema": "numerika.taskboard.tasks.v1",
-    "rev": 8,
-    "updatedAt": "2026-02-08T20:12:00Z",
+    "rev": 9,
+    "updatedAt": "2026-02-08T20:14:00Z",
     "updatedBy": "wiki"
   },
   "tasks": [
@@ -14,7 +14,10 @@
       "owner": "tank",
       "createdBy": "wiki",
       "createdAt": "2026-02-08T19:03:00Z",
-      "agreedBy": ["wiki", "tank"],
+      "agreedBy": [
+        "wiki",
+        "tank"
+      ],
       "description": "Tank potwierdza odbiór taska, robi review, uzgadniamy AGREED, Tank wykonuje i zamyka DONE.",
       "doneAt": "2026-02-08T19:07:01Z"
     },
@@ -26,7 +29,10 @@
       "owner": "tank",
       "createdBy": "wiki",
       "createdAt": "2026-02-08T19:12:00Z",
-      "agreedBy": ["wiki", "tank"],
+      "agreedBy": [
+        "wiki",
+        "tank"
+      ],
       "description": "Verify wiki-tank-taskboard skill works end-to-end",
       "doneAt": "2026-02-08T19:13:31Z"
     },
@@ -38,7 +44,10 @@
       "owner": "wiki",
       "createdBy": "wiki",
       "createdAt": "2026-02-08T19:16:30Z",
-      "agreedBy": ["wiki", "tank"],
+      "agreedBy": [
+        "wiki",
+        "tank"
+      ],
       "description": "Optimize context loading: lean boot, prompt layering, event-driven health",
       "doneAt": "2026-02-08T19:20:31Z"
     },
@@ -50,19 +59,25 @@
       "owner": "wiki",
       "createdBy": "wiki",
       "createdAt": "2026-02-08T20:06:00Z",
-      "agreedBy": ["wiki", "tank"],
+      "agreedBy": [
+        "wiki",
+        "tank"
+      ],
       "doneAt": "2026-02-08T20:06:30Z",
       "description": "Complete OpenClaw skill for memory/token optimization — 5 independent modules"
     },
     {
       "id": "T-20260208-05",
       "title": "Optimization doc review & summary",
-      "status": "NEW",
+      "status": "AGREED",
       "priority": "P1",
       "owner": "wiki",
       "createdBy": "wiki",
       "createdAt": "2026-02-08T20:12:00Z",
-      "agreedBy": [],
+      "agreedBy": [
+        "wiki",
+        "tank"
+      ],
       "description": "Review openclaw-memory-token-optimization document together, discuss key points, create collaborative MD summary and push to repo (shared/optimization-summary.md)"
     }
   ]
