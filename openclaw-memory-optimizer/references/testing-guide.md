@@ -50,7 +50,7 @@ python3 scripts/module-3-skill-router.py --scan /path/to/skills "weather forecas
 
 ### Module 5: Memory Tier Manager
 ```bash
-python3 scripts/module-5-memory-tier.py /path/to/workspace
+python3 scripts/module-5-memory-tier.py /path/to/memory/
 # Note: scans workspace/memory/ directory automatically
 # Expected: tier report (HOT/WARM/COLD), recommendations
 # Pass: today's notes = HOT, >7 days = COLD
