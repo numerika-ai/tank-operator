@@ -17,3 +17,4 @@
 {"id":"E-20260208-017","ts":"2026-02-08T20:06:30Z","taskId":"T-20260208-04","actor":"wiki","type":"status","message":"DONE — skill complete, all 5 modules tested, Tank reviewed","data":{"statusFrom":"DOING","statusTo":"DONE"}}
 {"ts":"2026-02-08T20:12:00Z","taskId":"T-20260208-05","event":"CREATE","by":"wiki","note":"Review optimization doc + create summary"}
 {"ts":"2026-02-08T20:14:00Z","taskId":"T-20260208-05","event":"AGREED","by":"wiki","note":"Both agree on summary structure"}
+{"ts":"2026-02-08T20:15:00Z","taskId":"T-20260208-05","event":"DONE","by":"wiki","note":"Summary pushed, Tank approved with micro-fixes applied"}

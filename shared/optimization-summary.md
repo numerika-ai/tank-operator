@@ -37,7 +37,7 @@ Proposed implementation: 4 phases over 8 weeks with metrics-driven validation.
 - No need for a separate "Session Orchestrator" service — OpenClaw handles sessions natively.
 
 **3. Tiered Memory (HOT/WARM/COLD)** (doc §2.4 — without graph)
-- Classify memory files by recency/relevance: HOT (today+yesterday), WARM (this week), COLD (archive).
+- Classify memory files by **importance × recency** (not just dates): HOT (active/critical), WARM (recent/relevant), COLD (archive).
 - Implemented: module 5 (Memory Tier Manager) with flat-file approach.
 - Document's Knowledge Graph (Neo4j/SQLite) is overengineered for 2-bot setup.
 
@@ -74,7 +74,7 @@ Proposed implementation: 4 phases over 8 weeks with metrics-driven validation.
 | On-demand docs (`docs/agent/`) | ✅ Done | §4.3 Dynamic loading |
 | Skill Router (module 3) | ✅ Done | §4.3 + Layer 3 (basic) |
 | Handoff Generator (module 4) | ✅ Done | §3.2 Session rotation |
-| Memory Tiering (module 5) | ✅ Done | §2.4 Structured memory |
+| Memory Tiering (module 5) | ✅ Done | §2.4 Tiered memory |
 | Context Audit (module 1) | ✅ Done | §3.1 Budget monitoring |
 | Lean Loader (module 2) | ✅ Done | §4.1 Boot optimization |
 | Bot-to-bot protocol + taskboard | ✅ Done | (not in doc — our addition) |

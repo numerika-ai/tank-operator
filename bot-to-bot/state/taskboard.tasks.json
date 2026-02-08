@@ -1,8 +1,8 @@
 {
   "meta": {
     "schema": "numerika.taskboard.tasks.v1",
-    "rev": 9,
-    "updatedAt": "2026-02-08T20:14:00Z",
+    "rev": 10,
+    "updatedAt": "2026-02-08T20:15:00Z",
     "updatedBy": "wiki"
   },
   "tasks": [
@@ -69,7 +69,7 @@
     {
       "id": "T-20260208-05",
       "title": "Optimization doc review & summary",
-      "status": "AGREED",
+      "status": "DONE",
       "priority": "P1",
       "owner": "wiki",
       "createdBy": "wiki",
@@ -78,7 +78,8 @@
         "wiki",
         "tank"
       ],
-      "description": "Review openclaw-memory-token-optimization document together, discuss key points, create collaborative MD summary and push to repo (shared/optimization-summary.md)"
+      "description": "Review openclaw-memory-token-optimization document together, discuss key points, create collaborative MD summary and push to repo (shared/optimization-summary.md)",
+      "doneAt": "2026-02-08T20:15:00Z"
     }
   ]
 }
