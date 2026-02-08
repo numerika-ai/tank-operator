@@ -1,8 +1,8 @@
 {
   "meta": {
     "schema": "numerika.taskboard.tasks.v1",
-    "rev": 3,
-    "updatedAt": "2026-02-08T19:12:01Z",
+    "rev": 4,
+    "updatedAt": "2026-02-08T19:13:31Z",
     "updatedBy": "wiki"
   },
   "tasks": [
@@ -24,15 +24,17 @@
     {
       "id": "T-20260208-02",
       "title": "Skill sanity test",
-      "status": "PLAN",
+      "status": "DONE",
       "priority": "P1",
       "owner": "tank",
       "createdBy": "wiki",
       "createdAt": "2026-02-08T19:12:00Z",
       "agreedBy": [
-        "wiki"
+        "wiki",
+        "tank"
       ],
-      "description": "Verify wiki-tank-taskboard skill works end-to-end"
+      "description": "Verify wiki-tank-taskboard skill works end-to-end",
+      "doneAt": "2026-02-08T19:13:31Z"
     }
   ]
 }
