@@ -1,8 +1,8 @@
 {
   "meta": {
     "schema": "numerika.taskboard.tasks.v1",
-    "rev": 6,
-    "updatedAt": "2026-02-08T19:20:31Z",
+    "rev": 7,
+    "updatedAt": "2026-02-08T20:06:30Z",
     "updatedBy": "wiki"
   },
   "tasks": [
@@ -50,6 +50,21 @@
       ],
       "description": "Optimize context loading: lean boot, prompt layering, event-driven health",
       "doneAt": "2026-02-08T19:20:31Z"
+    },
+    {
+      "id": "T-20260208-04",
+      "title": "openclaw-memory-optimizer skill",
+      "status": "DONE",
+      "priority": "P0",
+      "owner": "wiki",
+      "createdBy": "wiki",
+      "createdAt": "2026-02-08T20:06:00Z",
+      "agreedBy": [
+        "wiki",
+        "tank"
+      ],
+      "doneAt": "2026-02-08T20:06:30Z",
+      "description": "Complete OpenClaw skill for memory/token optimization \u2014 5 independent modules"
     }
   ]
 }

@@ -13,3 +13,5 @@
 {"id":"E-20260208-013","ts":"2026-02-08T19:18:30Z","taskId":"T-20260208-03","actor":"wiki","type":"status","message":"DOING: AGENTS.md 7.8KB→1.5KB, extracted to docs/agent/. Total static context 11.2KB→4.8KB","data":{"statusFrom":"PLAN","statusTo":"DOING"}}
 {"id":"E-20260208-014","ts":"2026-02-08T19:20:30Z","taskId":"T-20260208-03","actor":"tank","type":"status","message":"Tank applied lean AGENTS.md + docs/agent/ locally","data":{"statusFrom":"DOING","statusTo":"DOING"}}
 {"id":"E-20260208-015","ts":"2026-02-08T19:20:31Z","taskId":"T-20260208-03","actor":"wiki","type":"status","message":"DONE — both bots optimized: static context 11.2KB→4.8KB","data":{"statusFrom":"DOING","statusTo":"DONE"}}
+{"id":"E-20260208-016","ts":"2026-02-08T20:06:00Z","taskId":"T-20260208-04","actor":"wiki","type":"create","message":"openclaw-memory-optimizer skill — 5 modules","data":{"priority":"P0"}}
+{"id":"E-20260208-017","ts":"2026-02-08T20:06:30Z","taskId":"T-20260208-04","actor":"wiki","type":"status","message":"DONE — skill complete, all 5 modules tested, Tank reviewed","data":{"statusFrom":"DOING","statusTo":"DONE"}}
