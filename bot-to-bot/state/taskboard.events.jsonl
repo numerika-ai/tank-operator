@@ -1,0 +1,2 @@
+{"id":"E-20260208-001","ts":"2026-02-08T19:03:00Z","taskId":"T-20260208-01","actor":"wiki","type":"create","message":"Test taskboard: Tank potwierdza status maszyny","data":{"priority":"P1"}}
+{"id":"E-20260208-002","ts":"2026-02-08T19:03:01Z","taskId":"T-20260208-01","actor":"wiki","type":"plan","message":"Tank odpowiada na PING z raportem: docker, GPU, sieć, blockery","data":{"planVersion":1}}

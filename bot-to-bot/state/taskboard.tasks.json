@@ -1,9 +1,21 @@
 {
   "meta": {
     "schema": "numerika.taskboard.tasks.v1",
-    "rev": 0,
-    "updatedAt": "",
-    "updatedBy": ""
+    "rev": 1,
+    "updatedAt": "2026-02-08T19:03:00Z",
+    "updatedBy": "wiki"
   },
-  "tasks": []
+  "tasks": [
+    {
+      "id": "T-20260208-01",
+      "title": "Test taskboard system",
+      "status": "PLAN",
+      "priority": "P1",
+      "owner": "tank",
+      "createdBy": "wiki",
+      "createdAt": "2026-02-08T19:03:00Z",
+      "agreedBy": ["wiki"],
+      "description": "Tank potwierdza odbiór taska, robi review, uzgadniamy AGREED, Tank wykonuje i zamyka DONE."
+    }
+  ]
 }
